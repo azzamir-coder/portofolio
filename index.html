@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Az Zamir Humaid Al Muhammad</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #00d4ff;
+            --secondary-color: #ff007f;
+            --bg-gradient: radial-gradient(ellipse at center, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--bg-gradient);
+            background-size: 400% 400%;
+            animation: nebulaShift 20s ease infinite;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            cursor: default;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                              radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                              radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+            animation: twinkle 10s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+        @keyframes nebulaShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes twinkle {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.1); }
+        }
+        /* Parallax effect */
+        .parallax {
+            transform: translateZ(0);
+            will-change: transform;
+        }
+        /* Custom cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            pointer-events: none;
+            mix-blend-mode: difference;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+        }
+        .cursor.hover {
+            transform: scale(2);
+            box-shadow: 0 0 20px var(--primary-color);
+        }
+        /* Partikel bintang statis */
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: blink 2s infinite ease-in-out;
+        }
+        .star:nth-child(odd) { animation-delay: -1s; }
+        @keyframes blink {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        /* Shooting stars berjatuhan */
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: linear-gradient(45deg, #fff, transparent);
+            border-radius: 50%;
+            animation: shoot 5s linear infinite;
+            opacity: 0;
+        }
+        .shooting-star:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .shooting-star:nth-child(2) { top: 20%; left: 30%; animation-delay: 1s; }
+        .shooting-star:nth-child(3) { top: 30%; left: 50%; animation-delay: 2s; }
+        .shooting-star:nth-child(4) { top: 40%; left: 70%; animation-delay: 3s; }
+        .shooting-star:nth-child(5) { top: 50%; left: 90%; animation-delay: 4s; }
+        .shooting-star:nth-child(6) { top: 60%; left: 20%; animation-delay: 5s; }
+        @keyframes shoot {
+            0% { transform: translate(0, 0) rotate(45deg); opacity: 1; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(300px, 300px) rotate(45deg); opacity: 0; }
+        }
+        /* Loading screen */
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-gradient);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            animation: fadeOut 2s ease-in-out 3s forwards;
+        }
+        #loading::after {
+            content: 'Loading...';
+            font-size: 2em;
+            color: var(--primary-color);
+            animation: pulse 1s infinite;
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        header {
+            text-align: center;
+            padding: 100px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+        h1 {
+            font-size: 3em;
+            margin: 0;
+            text-shadow: 0 0 20px var(--primary-color), 0 0 40px var(--primary-color);
+        }
+        .typing {
+            font-size: 1.2em;
+            border-right: 2px solid var(--primary-color);
+            animation: blinkFast 0.5s infinite;
+            color: var(--primary-color);
+        }
+        @keyframes blinkFast {
+            0%, 50% { border-color: transparent; }
+            51%, 100% { border-color: var(--primary-color); }
+        }
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid var(--primary-color);
+            margin: 20px auto;
+            display: block;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 30px var(--primary-color), 0 0 60px var(--primary-color);
+        }
+        .profile-img:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 50px var(--primary-color), 0 0 100px var(--primary-color);
+        }
+        section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .skill {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+        .skill:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.4), 0 0 30px rgba(0, 212, 255, 0.6);
+        }
+        .skill i {
+            font-size: 3em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            animation: glow 2s infinite alternate;
+        }
+        @keyframes glow {
+            from { text-shadow: 0 0 10px var(--primary-color); }
+            to { text-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--primary-color); }
+        }
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .project {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            cursor: pointer;
+        }
+        .project:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.4), 0 0 30px rgba(0, 212, 255, 0.6);
+        }
+        .project::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .project:hover::before {
+            opacity: 1;
+        }
+        .project a {
+            position: relative;
+            z-index: 1;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 0 50px var(--primary-color);
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 2em;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+        /* Testimonial */
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .testimonial {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            position: relative;
+            z-index: 1;
+        }
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+        /* Ripple effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(0, 212, 255, 0.6);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+        }
+        @keyframes ripple {
+            to { transform: scale(4); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading"></div>
+    <div class="cursor"></div>
+
+    <!-- Partikel bintang statis -->
+    <div class="star" style="top: 10%; left: 20%; width: 2px; height: 2px;"></div>
+    <div class="star" style="top: 20%; left: 50%; width: 3px; height: 3px;"></div>
+    <div class="star" style="top: 30%; left: 80%; width: 1px; height: 1px;"></div>
+    <div class="star" style="top: 50%; left: 10%; width: 2px; height: 2px;"></div>
+    <div class="star" style="top: 70%; left: 60%; width: 3px; height: 3px;"></div>
+    <div class="star" style="top: 80%; left: 90%; width: 1px; height: 1px;"></div>
+    <div class="star" style="top: 40%; left: 30%; width: 2px; height: 2px;"></div>
+    <div class="star" style="top: 60%; left: 70%; width: 3px; height: 3px;"></div>
+    <!-- Tambahan bintang -->
+    <div class="star" style="top: 15%; left: 40%; width: 1px; height: 1px;"></div>
+    <div class="star" style="top: 25%; left: 65%; width: 2px; height: 2px;"></div>
+    <div class="star" style="top: 35%; left: 85%; width: 3px; height: 3px;"></div>
+
+    <!-- Shooting stars berjatuhan -->
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+
+    <header class="parallax">
+        <img src="image/WhatsApp Image 2026-02-08 at 15.08.19.jpeg" alt="Foto Profil Az Zamir Humaid Al Muhammad" class="profile-img">
+        <h1>Az Zamir Humaid Al Muhammad</h1>
+        <p class="typing">Web Developer | Designer | CEO</p>
+    </header>
+    
+    <section id="about" class="parallax">
+        <h2>Tentang Saya</h2>
+        <p>Saya adalah seorang pengembang web yang passionate dengan pengalaman dalam HTML, CSS, JavaScript, dan framework modern. Saya suka menciptakan pengalaman pengguna yang menarik dan fungsional.</p>
+    </section>
+    
+    <section id="skills" class="parallax">
+        <h2>Keterampilan</h2>
+        <div class="skills">
+            <div class="skill">
+                <i class="fas fa-code"></i>
+                <h3>HTML & CSS</h3>
+                <p>Ahli dalam membangun struktur dan styling web yang responsif.</p>
+            </div>
+            <div class="skill">
+                <i class="fab fa-js-square"></i>
+                <h3>JavaScript</h3>
+                <p>Menguasai interaktivitas dan logika sisi klien.</p>
+            </div>
+            <div class="skill">
+                <i class="fab fa-react"></i>
+                <h3>React</h3>
+                <p>Berpengalaman dalam membangun aplikasi web dinamis.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="projects" class="parallax">
+        <h2>Proyek</h2>
+        <div class="projects">
+            <div class="project" data-modal="modal1">
+                <h3>Website E-Commerce</h3>
+                <p>Platform belanja online dengan fitur keranjang dan pembayaran.</p>
+                <a href="#">Lihat Demo</a>
+            </div>
+            <div
